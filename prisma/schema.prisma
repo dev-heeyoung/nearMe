@@ -33,6 +33,7 @@ model Event {
   capacity Int
   participants Int
   availability Boolean
+  distance Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   host        Host       @relation(fields: [hostId], references: [id], onDelete: Cascade)
