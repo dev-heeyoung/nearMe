@@ -26,16 +26,25 @@ model Event {
   id      Int      @id @default(autoincrement())
   title String
   description String
+  category String
   startTime DateTime
   endTime DateTime
   latitude Float
   longitude Float
   capacity Int
-  participants Int
   availability Boolean
   distance Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   host        Host       @relation(fields: [hostId], references: [id], onDelete: Cascade)
   hostId      Int
+  bookings Booking[]
+}
+
+model Booking {
+  id Int      @id @default(autoincrement())
+  username String
+  password String
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId Int
 }
