@@ -1,7 +1,6 @@
 const Input = ({ 
     label,
     name,
-    kind,
     register,
     type,
     required,
@@ -12,8 +11,19 @@ const Input = ({
             htmlFor={name}>
             {label}
         </label>
-        { kind === "email" ? (
-        <div>
+        { name === 'distance' ? (
+            <div>
+            <input
+                id={name}
+                type={type}
+                step="0.01"
+                {...register}
+                required={required}
+                className="border rounded"
+            />
+            </div>
+        ) : (
+            <div>
             <input
                 id={name}
                 type={type}
@@ -21,19 +31,9 @@ const Input = ({
                 required={required}
                 className="border rounded"
             />
-        </div>
-        ) : null }
-        { kind === "password" ? (
-        <div>
-            <input
-                id={name}
-                type={type}
-                {...register}
-                required={required}
-                className="border rounded"
-                />
-        </div> 
-        ) : null }
+            </div>
+        )}
+
     </div>
   )
 }
