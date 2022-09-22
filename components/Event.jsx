@@ -1,7 +1,7 @@
 const Event = ({ event }) => {
   return (
-    <div className="border">
-        <h1>{event.title}</h1>
+    <div className="flex-none bg-stone-50 border-2 rounded-lg">
+        <h1 className="font-bold">{event.title}</h1>
         <div>{event.description}</div>
         <div>{event.startTime}</div>
         <div>{event.endTime}</div>

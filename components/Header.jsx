@@ -2,7 +2,10 @@ import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 
 
+import Image from 'next/image'
 import Button from './Button'
+import FilterBtn from './FilterBtn'
+import FilterList from './FilterList'
 
 const Header = () => {
     const { data: session } = useSession();
