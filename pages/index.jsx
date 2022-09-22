@@ -56,11 +56,7 @@ export default function Home() {
         <Header />
         <div className="flex ml-10 mr-10">        
           <Events events={events}/>
-<<<<<<< HEAD
           <Map events={events} />
-=======
-          <Map events={events}/>
->>>>>>> main
         </div>
       </main>
       <footer className="">
