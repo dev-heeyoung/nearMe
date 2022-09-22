@@ -57,7 +57,11 @@ export default function Home() {
         <FilterList />
         <div className="flex mx-auto">
           <Events events={events}/>
+<<<<<<< HEAD
           <Map events={events} />
+=======
+          <Map events={events}/>
+>>>>>>> main
         </div>
       </main>
       <footer className="">
