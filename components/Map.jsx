@@ -1,6 +1,6 @@
 const Map = () => {
   return (
-    <div className="border w-1/2">Map</div>
+    <div className="flex-grow bg-stone-50 rounded-lg border-2 w-1/2">Map</div>
   )
 }
 
