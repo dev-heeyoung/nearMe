@@ -31,19 +31,11 @@ function Map(props){
             eventFeatures.push(eventFeature.getGeometry());
             //console.log(eventFeature.getGeometry().getCoordinates());
         });
-<<<<<<< HEAD
-
-=======
->>>>>>> main
         console.log(eventFeatures);
         //feature
         const eventsFeatures = new Feature({
             geometry : new MultiPoint(eventsCoord)
         });
-<<<<<<< HEAD
-
-=======
->>>>>>> main
         */
       
     //vector source for events
@@ -111,9 +103,6 @@ function Map(props){
 
     return (<div className='border w-1/2' id="map"></div>);
   }
-<<<<<<< HEAD
 
 export default Map
-=======
->>>>>>> main
 
