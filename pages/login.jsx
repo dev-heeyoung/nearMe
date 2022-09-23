@@ -19,7 +19,7 @@ export default function LogIn () {
 
   useEffect(() => {
     if (session?.user) {
-      router.push(redirect || '/');
+      router.push(redirect || 'events/upload');
     }
   }, [router, session, redirect]);
 

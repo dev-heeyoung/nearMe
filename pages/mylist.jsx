@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import Link from 'next/link'
+import { useSession } from 'next-auth/react';
+import { useRouter } from "next/router";
 
 import Event from '../components/Event'
 import Header from '../components/Header'
@@ -9,6 +10,8 @@ import Header from '../components/Header'
 export default function MyList() {
     const [events, setEvents] = useState(undefined)
     const [isLoading, setLoading] = useState(false)
+    const session = useSession();
+    const router = useRouter();
 
     const removeEventHandler = async (event) => {
         fetch(`api/events/${event.id}`, {
@@ -22,6 +25,9 @@ export default function MyList() {
     }
 
     useEffect( () => {
+        if (!session?.user) {
+            router.push(`/`)
+        }
         setLoading(true);
         const fetchData = async () => {
             const data = await fetch('/api/host/events')
@@ -41,9 +47,9 @@ export default function MyList() {
                     <li key={event.id.toString()}>
                         <div className="grid grid-col-5">
                             <div className="col-start-1 col-end-2">
-                                <Link href={`/events/${event.id}`}>
+                               
                                     <Event event={event}/>
-                                </Link>
+                     
                             </div>
                             <div className="col-end-2">
                                 <button onClick={() => removeEventHandler(event)}>

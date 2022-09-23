@@ -32,7 +32,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-      <div class="container max-width mt-10 space-y-8">
+      <div className="container max-width mt-10 space-y-8">
         <Header type="home"/>
           <div className = "grid grid-cols-12" style= {{height:450 +'px'}}>
             <div className = "col-span-4 overflow-auto" id ="div_eventList">

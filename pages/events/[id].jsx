@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { useRouter } from 'next/router';
-import Event from '../../components/Event'
 import Header from '../../components/Header'
 
 export default function EventDetail() {
@@ -13,7 +12,6 @@ export default function EventDetail() {
         id,
       }
     } = router;
-    console.log(isReady)
 
     useEffect(() => {
       if (!isReady) {
@@ -23,15 +21,12 @@ export default function EventDetail() {
       const fetchData = async () => {
         const data = await fetch(`/api/events/${id}`)
         const json = await data.json();
-        console.log(json)
         setEvent(json);
 
       }
       fetchData()
       .catch()
     }, [isReady])
-
-    console.log(event)
    
     return (
       <div>

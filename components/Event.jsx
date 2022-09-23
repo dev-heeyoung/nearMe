@@ -1,6 +1,6 @@
 const Event = ({ event }) => {
   return (
-        <a className="flex-none bg-stone-50 border-2 rounded-lg w-100">
+        <a className="flex-none bg-stone-50 border-2 rounded-lg" href={`events/${event.id}`}>
             <h1 className="font-bold">{event.title}</h1>
             <div>Capacity: {event.capacity > 0 ? event.capacity : "No Limit"} </div>
             <div>{event.startTime}</div>
