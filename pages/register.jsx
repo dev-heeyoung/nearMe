@@ -30,7 +30,7 @@ export default function Register () {
 
   return (
     <div className="text-center max-w-screen-sm mx-auto">
-      <div className="border p-10 m-3">
+      <div className="shadow-lg p-10 m-3">
         <h3 className="p-3">
           nearMe
         </h3>

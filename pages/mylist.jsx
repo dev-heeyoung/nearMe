@@ -33,20 +33,27 @@ export default function MyList() {
     }, [events])
   
     return (
-        <>
+         
+        <div className="">
             <Header type="mylist"/>
-            <ul className="w-1/2">
+            <ul className="mx-auto">
                 {events?.map((event) => 
                     <li key={event.id.toString()}>
-                        <Link href={`/events/${event.id}`}>
-                            <Event  event={event}/>
-                        </Link>
-                        <button onClick={() => removeEventHandler(event)}>
-                            Delete
-                        </button>   
+                        <div className="grid grid-col-5">
+                            <div className="col-start-1 col-end-2">
+                                <Link href={`/events/${event.id}`}>
+                                    <Event event={event}/>
+                                </Link>
+                            </div>
+                            <div className="col-end-2">
+                                <button onClick={() => removeEventHandler(event)}>
+                                    Delete
+                                </button>
+                            </div>
+                        </div>   
                     </li>)}
             </ul>
-        </>
+        </div>
     )
 }
 

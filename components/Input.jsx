@@ -20,7 +20,8 @@ const Input = ({
                 step="0.01"
                 {...register}
                 required={required}
-                className="border rounded m-3"
+                className="border rounded mt-2 mb-2 w-4/5 px-2 py-1 flex mx-auto"
+
             />
         ) : (
             <input

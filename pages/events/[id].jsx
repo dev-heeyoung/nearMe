@@ -4,9 +4,7 @@ import Event from '../../components/Event'
 import Header from '../../components/Header'
 
 export default function EventDetail() {
-    const [event, setEvent] = useState(undefined)
-
-
+    const [event, setEvent] = useState(undefined);
     const router = useRouter();
 
     let {
@@ -36,12 +34,22 @@ export default function EventDetail() {
     console.log(event)
    
     return (
-      <>
+      <div>
       <Header type='detail'/>
-        <div className="w-1/2">
-          {event ? (<Event event={event}/> ): (<div>No Events Found</div>)}
+        <div className="text-center max-w-screen-md mx-auto mt-10 shadow-lg">
+        <h2 className="m-10 p-10">Event Detail</h2>
+          <div className="w-1/2 mx-auto">
+            {event ? (
+              <>
+              <div>{event.title}</div>
+              <div>{event.startTime} - {event.endTime}</div>
+              <div>Capacity: {event.Capacity}</div>
+              <div>{event.description}</div>
+              </>
+            ): (<div>No Events Found</div>)}
+          </div>
         </div>
-      </>
+      </div>
     )
 }
 

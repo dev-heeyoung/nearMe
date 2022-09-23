@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { useState, useEffect } from "react"
 
 import Header from '../components/Header'
-import FilterList from '../components/FilterList'
 import Events from '../components/Events'
 import Map from '../components/Map'
 import Footer from '../components/Footer'
@@ -33,11 +32,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+      <div class="container max-width mt-10 space-y-8">
         <Header type="home"/>
-        <FilterList />
-        <div className="flex mx-auto h-96">
-          { events? (<Events events={events}/>) : (<div>No Events Found</div>)}
-          <Map events={events} />
+          <div className = "grid grid-cols-12" style= {{height:450 +'px'}}>
+            <div className = "col-span-4 overflow-auto" id ="div_eventList">
+            { events? (<Events events={events}/>) : (<div>No Events Found</div>)}
+            </div>
+            <div className = "col-span-8" id ="map">
+              <Map events={events} />
+            </div>
+          </div>
         </div>
       </main>
       <footer className="">

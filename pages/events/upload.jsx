@@ -39,20 +39,27 @@ export default function Upload() {
     return (
         <>        
         <Header type="upload"/>
-        <form onSubmit={handleSubmit(onValid)}>
-            <Input label="Title" name="title" type="text" register={register("title")} required/>
-            <Input label="Distance" name="distance" type="number" register={register("distance")} required/>
-            <Input label="Start Time" name="startTime" type="datetime-local" register={register("startTime")} required/>
-            <Input label="End Time" name="endTime" type="datetime-local" register={register("endTime")} required/>
-            <Input label="Capacity" name="capacity" type="number" register={register("capacity")} required/>
-            <lable htmlFor="description">Description</lable>
-            <div>
-                <textarea className="border" label="Description" name="description" row={20} {...register("description")} required/>
-            </div>
-            <button className="border bg-red-600 text-white">
-                Upload
-            </button>
-        </form>
+        <div className="text-center max-w-screen-sm min-h-screen-2xl mx-auto mt-15 shadow-lg">
+            <h1 className="text-2xl pt-12 text-cyan-800 font-bold">Add New Event</h1>
+            <form className="p-10" onSubmit={handleSubmit(onValid)}>
+                <Input label="Title" name="title" type="text" register={register("title")} required/>
+                <Input label="Distance (Km)" name="distance" type="number" register={register("distance")} required/>
+                <Input label="Start Day & Time" name="startTime" type="datetime-local" register={register("startTime")} required/>
+                <Input label="End Day & Time" name="endTime" type="datetime-local" register={register("endTime")} required/>
+                <Input label="Capacity" name="capacity" type="number" register={register("capacity")} required/>
+                <div className="m-3">
+                    <lable 
+                        htmlFor="description"
+                        >Description</lable>
+                    <div>
+                        <textarea className="border mt-3 w-full h-96 p-3" label="Description" name="description" row="7" {...register("description")} required/>
+                    </div>
+                </div>
+                <button className="w-3/5 mt-10 mx-auto m-3 cursor-pointer bg-cyan-800 hover:from-stone-50 hover:to-stone-10 border-2 px-5 py-2 text-base leading-5 rounded-full font-semibold text-white hover:font-bold hover:text-bg-inherit hover:border-2 hover:border-cyan-900">
+                    Upload
+                </button>
+            </form>
+        </div>
         </>
 
     )

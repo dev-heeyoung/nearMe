@@ -18,9 +18,9 @@ const Header = ({ type }) => {
                 <a className="bg-red-600 text-white" onClick={e => {
                     e.preventDefault()
                     signOut()
-                }}>Sign Out</a>
+                    }}>Sign Out</a>
             </Link>
-        ) : <></>}
+        ) : (<></>)}
 
         { type !== 'mylist' ? (
             <Button text="My Events" href={session?.user? "/mylist" : "/login"} />
@@ -29,8 +29,6 @@ const Header = ({ type }) => {
         { type === 'home' || type === 'mylist' || type =='detail' ? 
         (<Button text="Add Event" href={session?.user? "/events/upload" : "/login"} />) 
         : (<></>)}
-
-        { type === ''}
         
     </div>
   )

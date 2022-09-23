@@ -40,7 +40,7 @@ export default function LogIn () {
   };
   return (
     <div className="text-center max-w-screen-sm mx-auto">
-      <div className="border p-10 m-10">
+      <div className="shadow-lg p-10 m-10">
         <h3 className="p-10">
           nearMe
         </h3>
