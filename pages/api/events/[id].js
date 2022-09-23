@@ -9,13 +9,14 @@ export default async function handler(req, res) {
           id: +id
         },
       })
+      console.log(event)
       res.status(200).json(event)
     }
     
     if (req.method === 'DELETE') {      
       await prisma.event.delete({
         where: {
-            id: Number(eventid),
+            id: +id,
           },
         })
     } 

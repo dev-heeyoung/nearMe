@@ -13,27 +13,30 @@ export default function Home() {
   const [isLoading, setLoading] = useState(false)
 
   useEffect( () => {
-      setLoading(true);
+      
       const fetchData = async () => {
           const data = await fetch('/api/event')
           const json = await data.json();
           setEvents(json.events);
+          setLoading(true);
       }
       fetchData()
       .catch()
-  }, [])
+  }, [isLoading])
+  console.log(Array.isArray(events))
+  //console.log(events.length)
   return (
     <div>
-      <Head>
+      <Head type="home">
         <title>nearMe</title>
         <meta name="" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Header />
+        <Header type="home"/>
         <FilterList />
         <div className="flex mx-auto h-96">
-          <Events events={events}/>
+          { events? (<Events events={events}/>) : (<div>No Events Found</div>)}
           <Map events={events} />
         </div>
       </main>

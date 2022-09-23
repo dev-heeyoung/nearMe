@@ -39,13 +39,13 @@ export default function LogIn () {
     }    
   };
   return (
-    <div className="text-center max-w-screen-md">
-      <div className="border p-10">
-        <h3>
+    <div className="text-center max-w-screen-sm mx-auto">
+      <div className="border p-10 m-10">
+        <h3 className="p-10">
           nearMe
         </h3>
-        <form onSubmit={handleSubmit(onValid)}>
-          <div>
+        <form className="m-5" onSubmit={handleSubmit(onValid)}>
+          <div className="m-10">
           <Input label="Email address" name="email" kind="email" type="email" register={register("email", {
                 required: 'Please enter email',
                 pattern: {
@@ -65,22 +65,22 @@ export default function LogIn () {
                 }
             })} 
             required/>
-            {errors.confirmPassword && (
+            {errors.password && (
                 <div className="text-red-500 ">
-                {errors.confirmPassword.message}
+                {errors.password.message}
                 </div>
             )}
           </div>
-          <div className="bg-red-600 text-white rounded">
+          <div className="w-3/5 mx-auto m-3 cursor-pointer bg-cyan-800 hover:from-stone-50 hover:to-stone-10 border-2 px-5 py-2 text-base leading-5 rounded-full font-semibold text-white hover:font-bold hover:text-bg-inherit hover:border-2 hover:border-cyan-900">
               <button>Continue</button>
           </div>
-          <div>{error}</div>
+          <div className="text-red-600">{error}</div>
         </form>
       </div>
       <div>
         <h5 className="text-center">New to nearMe?</h5>
         <Link href="/register">
-          <a className="bg-red-600 text-white rounded">Create your account</a>
+          <a className="text-blue-600/100 underline">Create your account</a>
         </Link>
       </div>
     </div>

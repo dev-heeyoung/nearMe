@@ -29,13 +29,13 @@ export default function Register () {
     }
 
   return (
-    <div className="text-center max-w-screen-md">
-      <div className="border p-10">
-        <h3>
+    <div className="text-center max-w-screen-sm mx-auto">
+      <div className="border p-10 m-3">
+        <h3 className="p-3">
           nearMe
         </h3>
-        <form onSubmit={handleSubmit(onValid)}>
-          <div>
+        <form className="m-5" onSubmit={handleSubmit(onValid)}>
+          <div className="m-10">
             <Input label="First name" name="firstName" kind="text" type="text" register={register("firstName", {
                 required: 'Please enter first name',
             })} 
@@ -91,14 +91,14 @@ export default function Register () {
               <div className="text-red-500 ">Password do not match</div>
             )}
           </div>
-          <div className="bg-red-600 text-white rounded">
+          <div className="w-3/5 mx-auto m-3 cursor-pointer bg-cyan-800 hover:from-stone-50 hover:to-stone-10 border-2 px-5 py-2 text-base leading-5 rounded-full font-semibold text-white hover:font-bold hover:text-bg-inherit hover:border-2 hover:border-cyan-900">
               <button>Continue</button>
           </div>
         </form>
-        <div>
+      <div className="mt-10">
         <h5 className="text-center">Have an account?</h5>
         <Link href="/login">
-          <a className="bg-red-600 text-white rounded">Sign In</a>
+          <a className="text-blue-600/100 underline">Sign In</a>
         </Link>
       </div>
       </div>

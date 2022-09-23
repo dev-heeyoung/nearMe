@@ -1,30 +1,44 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react"
 import { useRouter } from "next/router"
+import { useEffect } from "react";
 
+import Header from "../../components/Header"
 import Input from "../../components/Input"
 
 export default function Upload() {
     const { register, handleSubmit, formState: {errors} } = useForm();
-    const [ data, setData ] = useState(undefined);
+    const [ event, setEvent ] = useState(undefined);
     const [ error, setError ] = useState(undefined);
     const router = useRouter();
     const { redirect } = router.query;
+
     const onValid = (data) => {
-        fetch("/api/event", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then((res) => res.json().catch(() => {})
-        .then(setData)
-        .then(() => 
-        router.push(redirect || '/mylist')
-        )
-        .catch(setError))
-    } 
+        const fetchData = async () => {
+            const res = await fetch("/api/event", {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            const json = await res.json();
+            console.log(json.event);
+            setEvent(json.event);
+        }
+        fetchData()
+        .catch(setError)
+    }
+
+    useEffect(() => {
+        if (event) {
+            router.push(`/events/${event.id}`)
+        }
+      }, [event]);
+      
     return (
+        <>        
+        <Header type="upload"/>
         <form onSubmit={handleSubmit(onValid)}>
             <Input label="Title" name="title" type="text" register={register("title")} required/>
             <Input label="Distance" name="distance" type="number" register={register("distance")} required/>
@@ -39,5 +53,7 @@ export default function Upload() {
                 Upload
             </button>
         </form>
+        </>
+
     )
 }

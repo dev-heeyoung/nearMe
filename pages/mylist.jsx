@@ -1,9 +1,25 @@
 import { useState, useEffect } from "react"
+import Link from 'next/link'
+
 import Event from '../components/Event'
+import Header from '../components/Header'
+//import Button from '../components/Button'
+
 
 export default function MyList() {
     const [events, setEvents] = useState(undefined)
     const [isLoading, setLoading] = useState(false)
+
+    const removeEventHandler = async (event) => {
+        fetch(`api/events/${event.id}`, {
+            method: "DELETE",
+            body: JSON.stringify(event),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .catch(events)
+    }
 
     useEffect( () => {
         setLoading(true);
@@ -14,12 +30,23 @@ export default function MyList() {
         }
         fetchData()
         .catch()
-    }, [])
+    }, [events])
   
     return (
-        <div className="w-1/2">
-            {events?.map((event, index) => <article><Event key={index} event={event}/></article>)}
-        </div>
+        <>
+            <Header type="mylist"/>
+            <ul className="w-1/2">
+                {events?.map((event) => 
+                    <li key={event.id.toString()}>
+                        <Link href={`/events/${event.id}`}>
+                            <Event  event={event}/>
+                        </Link>
+                        <button onClick={() => removeEventHandler(event)}>
+                            Delete
+                        </button>   
+                    </li>)}
+            </ul>
+        </>
     )
 }
 
@@ -33,7 +60,7 @@ export default function MyList() {
 //     });
 //     return {
 //       props: {
-//         products: JSON.parse(JSON.stringify(events)),
+//         event: JSON.parse(JSON.stringify(events)),
 //       },
 //     };
 //   }
