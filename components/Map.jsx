@@ -14,7 +14,8 @@ import { Icon} from 'ol/style';
 import Event from './Event'
 
 
-function Map(props){
+function Map( props ){
+
 
   const [mapObject, setMapObject] = useState({})
    useEffect(() => {
@@ -41,15 +42,14 @@ function Map(props){
     //vector source for events
         const eventSource = new VectorSource({});
 
-
-        props.events.map((event) =>{
+        props.events?.map((event) =>{
             const eventFeature =  new Feature({
                 geometry : new Point(transform([event.longitude, event.latitude], 'EPSG:4326' ,'EPSG:3857')),
             }); 
             eventFeature.setProperties({'eventId' : event.id})
             eventSource.addFeature(eventFeature);
             
-           // console.log("event id" +  eventFeature.getProperties() + "      event coodinate   " + transform([event.longitude, event.latitude], 'EPSG:4326' ,'EPSG:3857'));
+           console.log("event id" +  eventFeature.getProperties() + "      event coodinate   " + transform([event.longitude, event.latitude], 'EPSG:4326' ,'EPSG:3857'));
         })
               
 
@@ -101,7 +101,7 @@ function Map(props){
         return ()=> null
     }, [])
 
-    return (<div className='border w-1/2' id="map"></div>);
+    return (<div className='border w-1/2' id="map"></div>)
   }
 
 export default Map

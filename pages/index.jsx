@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useState, useEffect } from "react"
 
 import Header from '../components/Header'
 import FilterList from '../components/FilterList'
@@ -6,45 +7,21 @@ import Events from '../components/Events'
 import Map from '../components/Map'
 import Footer from '../components/Footer'
 
+
 export default function Home() {
-  const events = [
-    {
-      id: 1,
-      title: "event1",
-      description: "description",
-      startTime: "2022-09-24 00:00:00",
-      endTime: "2022-09-24 00:00:00",
-      latitude: 1.1,
-      longitude: 1.1,
-      capacity: 5,
-      participants: 3,
-      availability: false,
-    },
-    {
-      id: 2,
-      title: "event2",
-      description: "description",
-      startTime: "2022-09-24 00:00:00",
-      endTime: "2022-09-24 00:00:00",
-      latitude: 1.1,
-      longitude: 1.1,
-      capacity: 5,
-      participants: 3,
-      availability: false,
-    },
-    {
-      id: 3,
-      title: "event3",
-      description: "description",
-      startTime: "2022-09-24 00:00:00",
-      endTime: "2022-09-24 00:00:00",
-      latitude: 1.1,
-      longitude: 1.1,
-      capacity: 5,
-      participants: 3,
-      availability: false,
-    }
-  ]
+  const [events, setEvents] = useState(undefined)
+  const [isLoading, setLoading] = useState(false)
+
+  useEffect( () => {
+      setLoading(true);
+      const fetchData = async () => {
+          const data = await fetch('/api/event')
+          const json = await data.json();
+          setEvents(json.events);
+      }
+      fetchData()
+      .catch()
+  }, [])
   return (
     <div>
       <Head>
@@ -55,9 +32,9 @@ export default function Home() {
       <main>
         <Header />
         <FilterList />
-        <div className="flex mx-auto">
+        <div className="flex mx-auto h-96">
           <Events events={events}/>
-          <Map events={events}/>
+          <Map events={events} />
         </div>
       </main>
       <footer className="">

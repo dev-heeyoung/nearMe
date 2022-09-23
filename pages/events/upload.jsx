@@ -10,7 +10,6 @@ export default function Upload() {
     const [ error, setError ] = useState(undefined);
     const router = useRouter();
     const { redirect } = router.query;
-
     const onValid = (data) => {
         fetch("/api/event", {
             method: "POST",

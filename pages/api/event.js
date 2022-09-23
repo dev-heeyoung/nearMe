@@ -22,13 +22,14 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   }
 
 export default async function handler(req, res) {
-    const session = await getSession({ req });
-    const { user } = session;
-    console.log(user);
-    if (!session) {
-      return res.status(401).send({ message: 'signin required' });
-    }
     if (req.method === 'POST') {
+      const session = await getSession({ req });
+      const { user } = session;
+  
+      if (!session) {
+        return res.status(401).send({ message: 'signin required' });
+      }
+
       const {
         body: { title, distance, startTime, endTime, capacity, description, latitude, longitude },
       } = req;
@@ -41,10 +42,8 @@ export default async function handler(req, res) {
             endTime: new Date(endTime),
             capacity: Number(capacity),
             description,
-            latitude: 1.1,
-            longitude: 1.1,
-            // latitude: parseFloat(event.lat),
-            // longitude:  parseFloat(event.long),
+            latitude: parseFloat(event.lat),
+            longitude:  parseFloat(event.long),
             availability: true,  
             host: {
               connect: {
@@ -63,11 +62,10 @@ export default async function handler(req, res) {
       const lat = parseFloat(req.query.lat)
       const long = parseFloat(req.query.long)
       const result = await prisma.$queryRaw`SELECT * FROM Event`
-
-      const filtered = result.filter(event=>{
-        return getDistanceFromLatLonInKm(event.latitude,event.longitude,lat,long) < parseFloat(event.distance)
+      const events = result.filter(event=>{
+        return getDistanceFromLatLonInKm(event.latitude,event.longitude,lat, long) < parseFloat(event.distance)
       })
-
-      res.status(200).json(filtered) 
+      
+      res.status(200).json({ events }) 
     }
   }

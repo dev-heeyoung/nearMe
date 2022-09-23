@@ -5,8 +5,8 @@ const Event = ({ event }) => {
         <div>{event.description}</div>
         <div>{event.startTime}</div>
         <div>{event.endTime}</div>
-        <div>{event.latitude} / {event.longitude} </div>
-        <div>{event.participants} / {event.capacity} </div>
+        <div>{event.latitude} / {event.longitude}</div>
+        <div>{event.capacity} </div>
         <div>{event.availability}</div>
     </div>
   )

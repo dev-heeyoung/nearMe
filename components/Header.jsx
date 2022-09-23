@@ -6,7 +6,6 @@ import Button from './Button'
 
 const Header = () => {
     const { data: session } = useSession();
-    console.log(session)
   return (
     <div className="flex">
         <h1>nearMe</h1>
