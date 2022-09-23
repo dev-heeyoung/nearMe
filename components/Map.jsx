@@ -7,16 +7,14 @@ import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { OSM, Vector as VectorSource } from 'ol/source'; 
 import { Draw } from 'ol/interaction';
 import Feature from 'ol/Feature';
-import { MultiPoint, Point} from 'ol/geom';
-import { Icon} from 'ol/style';
+import { Point} from 'ol/geom';
 
-// import Event objects
-import Event from './Event'
 
 
 function Map(props){
 
-  const [mapObject, setMapObject] = useState({})
+   const [mapObject, setMapObject] = useState({});
+  
    useEffect(() => {
         /* 
         
@@ -38,10 +36,8 @@ function Map(props){
         });
         */
       
-    //vector source for events
+        //vector source for events
         const eventSource = new VectorSource({});
-
-
         props.events.map((event) =>{
             const eventFeature =  new Feature({
                 geometry : new Point(transform([event.longitude, event.latitude], 'EPSG:4326' ,'EPSG:3857')),
@@ -53,7 +49,7 @@ function Map(props){
         })
               
 
-    //vector layer for events
+        //vector layer for events
         const eventLayer = new VectorLayer({
             source: eventSource,
             style: {
@@ -62,7 +58,6 @@ function Map(props){
                 },
                 zindex: 10
             });
-
 
         const map = new OlMap({
             layers: [
@@ -85,24 +80,30 @@ function Map(props){
         map.addInteraction(draw);
         */
         map.addLayer(eventLayer);
-    
+        var selectedEvents = [];
         map.on('click', function(evt){
-           map.forEachFeatureAtPixel(evt.pixel, function(feature){
-                   //console.log(feature.getGeometry().getFlatCoordinates());
-                   //console.log(feature.getProperties().eventId)
-                   console.log(props.events.find(event => event.id == feature.getProperties().eventId));
-                })
-            //console.log(transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'));
-        })
-        //
+            map.forEachFeatureAtPixel(evt.pixel, function(feature){
+                //console.log(feature.getGeometry().getFlatCoordinates());
+                //console.log(feature.getProperties().eventId)
+                selectedEvents = props.events.find(event => event.id == feature.getProperties().eventId);
+                var str = "";
 
-        // display point
+               // selectedEvents.map((e) => {
+                 //   str += `<div id = ${e.id}>${e.id}</div><div>${e.description}</div>`;
+               // });
+                console.log(selectedEvents);
+                document.getElementById("eventDetail").innerHTML="<div>Hyunjung</div>";          
+                console.log(document.getElementById("eventDetail"));
+            });
+    
+            //console.log(transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'));
+        });
+    
         setMapObject({ map })
         return ()=> null
     }, [])
 
-    return (<div className='border w-1/2' id="map"></div>);
+    return (<div></div>);
   }
 
-export default Map
-
+  export default Map;
