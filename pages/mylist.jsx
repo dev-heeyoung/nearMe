@@ -25,9 +25,6 @@ export default function MyList() {
     }
 
     useEffect( () => {
-        if (!session?.user) {
-            router.push(`/`)
-        }
         setLoading(true);
         const fetchData = async () => {
             const data = await fetch('/api/host/events')
@@ -37,22 +34,22 @@ export default function MyList() {
         fetchData()
         .catch()
     }, [events])
+
   
     return (
          
-        <div className="">
+        <div className="container mx-auto space-y-8">
             <Header type="mylist"/>
-            <ul className="mx-auto">
+            <h1 className="text-center text-4xl p-12 text-cyan-800 font-bold">My Events</h1>
+            <ul className="mx-auto max-w-screen-sm pb-28">
                 {events?.map((event) => 
                     <li key={event.id.toString()}>
-                        <div className="grid grid-col-5">
-                            <div className="col-start-1 col-end-2">
-                               
-                                    <Event event={event}/>
-                     
+                        <div className="flex justify-between bg-slate-50 shadow-lg rounded mb-5 px-5 py-2">
+                            <div className="p-4 mb-3">
+                                <Event event={event}/>
                             </div>
-                            <div className="col-end-2">
-                                <button onClick={() => removeEventHandler(event)}>
+                            <div className="self-center">
+                                <button className="bg-red-600 text-white rounded w-24 h-8" onClick={() => removeEventHandler(event)}>
                                     Delete
                                 </button>
                             </div>

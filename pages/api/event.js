@@ -31,7 +31,7 @@ export default async function handler(req, res) {
       }
 
       const {
-        body: { title, distance, startTime, endTime, capacity, description, latitude, longitude },
+        body: { title, distance, startTime, endTime, capacity, description, latitude, longitude, address },
       } = req;
       
       const event = await prisma.event.create({
@@ -42,10 +42,9 @@ export default async function handler(req, res) {
             endTime: new Date(endTime),
             capacity: Number(capacity),
             description,
-            latitude: 1.1,
-            longitude: 1.1,
-            // latitude: parseFloat(event.lat),
-            // longitude:  parseFloat(event.long),
+            latitude: parseFloat(latitude),
+            longitude:  parseFloat(longitude),
+            address,
             availability: true,  
             host: {
               connect: {
@@ -65,7 +64,9 @@ export default async function handler(req, res) {
       const long = parseFloat(req.query.long)
       const result = await prisma.$queryRaw`SELECT * FROM Event`
       const events = result.filter(event=>{
-        return getDistanceFromLatLonInKm(event.latitude,event.longitude,1.1, 1.1) < parseFloat(event.distance)
+        //return getDistanceFromLatLonInKm(event.latitude,event.longitude, lat, long) < parseFloat(event.distance)
+        return getDistanceFromLatLonInKm(event.latitude,event.longitude, 43.779516, -79.415866) < parseFloat(event.distance)
+        
       })
       
       res.status(200).json({ events }) 

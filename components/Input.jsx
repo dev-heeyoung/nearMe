@@ -4,6 +4,7 @@ const Input = ({
     register,
     type,
     required,
+    ...rest
 }) => {
   return (
     <div className="flex flex-col">
@@ -13,27 +14,16 @@ const Input = ({
             >
             {label}
         </label>
-        { name === 'distance' ? (
-            <input
-                id={name}
-                type={type}
-                step="0.01"
-                {...register}
-                required={required}
-                className="border rounded mt-2 mb-2 w-4/5 px-2 py-1 flex mx-auto"
 
-            />
-        ) : (
-            <input
+        <input
                 id={name}
                 type={type}
                 {...register}
+                {...rest}
                 required={required}
                 className="border rounded mt-2 mb-2 w-4/5 px-2 py-1 flex mx-auto"
-            />
-        )}
-
-    </div>
+            />           
+        </div>
   )
 }
 

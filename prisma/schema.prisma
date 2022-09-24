@@ -22,11 +22,12 @@ model Host {
 model Event {
   id           Int       @id @default(autoincrement())
   title        String
-  description  String
+  description  String    @db.VarChar(2000)
   startTime    DateTime
   endTime      DateTime
   latitude     Float
   longitude    Float
+  address      String
   capacity     Int
   availability Boolean
   createdAt    DateTime  @default(now())
@@ -34,17 +35,6 @@ model Event {
   hostId       Int
   distance     Float
   host         Host      @relation(fields: [hostId], references: [id], onDelete: Cascade)
-  bookings     Booking[]
 
   @@index([hostId], map: "Event_hostId_fkey")
-}
-
-model Booking {
-  id       Int    @id @default(autoincrement())
-  username String
-  password String
-  eventId  Int
-  event    Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
-
-  @@index([eventId], map: "Booking_eventId_fkey")
 }

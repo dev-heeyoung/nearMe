@@ -12,6 +12,7 @@ export default function LogIn () {
     const { register, handleSubmit, getValues, formState: {errors} } = useForm();
   const [ data, setData ] = useState(undefined);
   const [ error, setError ] = useState(undefined);
+  const [ isLoading, setIsLoading ] = useState(false);
   const { data: session } = useSession();
 
   const router = useRouter();
@@ -19,11 +20,13 @@ export default function LogIn () {
 
   useEffect(() => {
     if (session?.user) {
+      setIsLoading(false)
       router.push(redirect || 'events/upload');
     }
   }, [router, session, redirect]);
 
   const onValid = async (data) => {
+    setIsLoading(true);
     try {
       const result = await signIn('credentials', {
         redirect: false,
@@ -41,9 +44,11 @@ export default function LogIn () {
   return (
     <div className="text-center max-w-screen-sm mx-auto">
       <div className="shadow-lg p-10 m-10">
-        <h3 className="p-10">
-          nearMe
-        </h3>
+          <div className="w-56 mx-auto mt-3 cursor-pointer">
+              <Link href="/">
+                <img src="teamLogo.jpeg"/>
+              </Link>
+          </div>
         <form className="m-5" onSubmit={handleSubmit(onValid)}>
           <div className="m-10">
           <Input label="Email address" name="email" kind="email" type="email" register={register("email", {
@@ -72,7 +77,7 @@ export default function LogIn () {
             )}
           </div>
           <div className="w-3/5 mx-auto m-3 cursor-pointer bg-cyan-800 hover:from-stone-50 hover:to-stone-10 border-2 px-5 py-2 text-base leading-5 rounded-full font-semibold text-white hover:font-bold hover:text-bg-inherit hover:border-2 hover:border-cyan-900">
-              <button>Continue</button>
+              <button>{isLoading ? `Loading...` : `Continue`}</button>
           </div>
           <div className="text-red-600">{error}</div>
         </form>

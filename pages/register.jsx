@@ -31,9 +31,11 @@ export default function Register () {
   return (
     <div className="text-center max-w-screen-sm mx-auto">
       <div className="shadow-lg p-10 m-3">
-        <h3 className="p-3">
-          nearMe
-        </h3>
+      <div className="w-56 mx-auto mt-3 cursor-pointer">
+              <Link href="/">
+                <img src="teamLogo.jpeg"/>
+              </Link>
+          </div>
         <form className="m-5" onSubmit={handleSubmit(onValid)}>
           <div className="m-10">
             <Input label="First name" name="firstName" kind="text" type="text" register={register("firstName", {

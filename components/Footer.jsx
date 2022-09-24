@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="text-center">2022 Next Page - All rights reserved</div>
+    <div className="text-center mt-7">2022 Next Page - All rights reserved</div>
   )
 }
 

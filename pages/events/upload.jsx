@@ -11,9 +11,16 @@ export default function Upload() {
     const [ event, setEvent ] = useState(undefined);
     const [ error, setError ] = useState(undefined);
     const router = useRouter();
-    const { redirect } = router.query;
 
     const onValid = (data) => {
+
+        const getCoordinates = async () => {
+            const res = await fetch(`http://api.positionstack.com/v1/forward?access_key=9ea5764760389aee5d4cbc0a8239653a&query=${data.address}`)    
+            const json = await res.json();
+            data.latitude = json.data[0].latitude;
+            data.longitude = json.data[0].longitude;  
+        };
+
         const fetchData = async () => {
             const res = await fetch("/api/event", {
                 method: "POST",
@@ -26,7 +33,8 @@ export default function Upload() {
             console.log(json.event);
             setEvent(json.event);
         }
-        fetchData()
+        getCoordinates()
+        .then(()=>{fetchData()})
         .catch(setError)
     }
 
@@ -35,18 +43,22 @@ export default function Upload() {
             router.push(`/events/${event.id}`)
         }
       }, [event]);
+      console.log('hi')
       
     return (
-        <>        
-        <Header type="upload"/>
-        <div className="text-center max-w-screen-sm min-h-screen-2xl mx-auto mt-15 shadow-lg">
+        <>
+        <div className="container mx-auto space-y-8">     
+            <Header type="upload"/>
+        </div>
+        <div className="text-center max-w-screen-sm min-h-screen-2xl mx-auto mt-14 shadow-lg ">
             <h1 className="text-2xl pt-12 text-cyan-800 font-bold">Add New Event</h1>
             <form className="p-10" onSubmit={handleSubmit(onValid)}>
                 <Input label="Title" name="title" type="text" register={register("title")} required/>
-                <Input label="Distance (Km)" name="distance" type="number" register={register("distance")} required/>
+                <Input label="Distance (Km)" name="distance" type="number" step="0.01" register={register("distance")} required/>
                 <Input label="Start Day & Time" name="startTime" type="datetime-local" register={register("startTime")} required/>
                 <Input label="End Day & Time" name="endTime" type="datetime-local" register={register("endTime")} required/>
                 <Input label="Capacity" name="capacity" type="number" register={register("capacity")} required/>
+                <Input label="Address" name="address" type="string" placeholder={`ex) 5600 Yonge St, North York`} register={register("address")} required/>
                 <div className="m-3">
                     <lable 
                         htmlFor="description"

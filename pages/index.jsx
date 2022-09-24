@@ -12,18 +12,33 @@ export default function Home() {
   const [isLoading, setLoading] = useState(false)
 
   useEffect( () => {
-      
+    var div  = document.getElementById("location");
+    const getLocation = async() => {
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(showPosition);
+      } else {
+        div.innerHTML = "The Browser Does not Support Geolocation";
+      }
+    }
+
+    const showPosition = async(position) => {
+      div.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+    }
+
       const fetchData = async () => {
           const data = await fetch('/api/event')
           const json = await data.json();
           setEvents(json.events);
           setLoading(true);
       }
+      
+      getLocation();
       fetchData()
       .catch()
   }, [isLoading])
   console.log(Array.isArray(events))
-  //console.log(events.length)
+
+
   return (
     <div>
       <Head type="home">
@@ -32,10 +47,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-      <div className="container max-width mt-10 space-y-8">
+      <div className="container mx-auto mt-10 space-y-8">
         <Header type="home"/>
-          <div className = "grid grid-cols-12" style= {{height:450 +'px'}}>
-            <div className = "col-span-4 overflow-auto" id ="div_eventList">
+        <h1 className="text-center text-xl italic text-cyan-800 font-bold">Build connection with your neighborhood</h1>
+        <div className = "grid grid-cols-12" style= {{height:550 +'px'}}>
+            <div className = "col-span-4 overflow-scroll" id ="div_eventList">
             { events? (<Events events={events}/>) : (<div>No Events Found</div>)}
             </div>
             <div className = "col-span-8" id ="map">
@@ -45,7 +61,8 @@ export default function Home() {
         </div>
       </main>
       <footer className="">
-        <Footer />
+      <Footer />
+        <div id="location"></div>
       </footer>
     </div>
   )
