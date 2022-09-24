@@ -47,7 +47,7 @@ export default function EventDetail() {
     
    
     return (
-      <div>
+      <div className="container mx-auto mt-10 space-y-8">
       <Header type='detail'/>
         <div className="max-w-screen-md mx-auto bg-slate-50 shadow-lg rounded m-10 px-5 py-2">
           <h2 className="text-center text-4xl p-12 text-cyan-800 font-bold">Event Detail</h2>

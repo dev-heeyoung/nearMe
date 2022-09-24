@@ -12,6 +12,8 @@ import { Point} from 'ol/geom';
 
 
 function Map(props){
+    
+    console.log(props.lon, props.lan);
 
    const [mapObject, setMapObject] = useState({});
   
@@ -102,7 +104,7 @@ function Map(props){
         setMapObject({ map })
         return ()=> null
     }, [])
-
+    console.log('map component')
     return (<div id="map"></div>);
   }
 

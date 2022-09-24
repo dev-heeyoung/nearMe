@@ -22,7 +22,7 @@ const Header = ({ type }) => {
         <div className="flex justify-between mx-auto">
             <div className="w-56 cursor-pointer">
                 <Link href="/">
-                    <img src="teamLogo.jpeg"/>
+                    <img src="/teamLogo.jpeg"/>
                 </Link>
             </div>
 

@@ -47,7 +47,7 @@ export default function Upload() {
       
     return (
         <>
-        <div className="container mx-auto space-y-8">     
+        <div className="container mx-auto mt-10 space-y-8">     
             <Header type="upload"/>
         </div>
         <div className="text-center max-w-screen-sm min-h-screen-2xl mx-auto mt-14 shadow-lg ">

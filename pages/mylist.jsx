@@ -38,7 +38,7 @@ export default function MyList() {
   
     return (
          
-        <div className="container mx-auto space-y-8">
+        <div className="container mx-auto mt-10 space-y-8">
             <Header type="mylist"/>
             <h1 className="text-center text-4xl p-12 text-cyan-800 font-bold">My Events</h1>
             <ul className="mx-auto max-w-screen-sm pb-28">

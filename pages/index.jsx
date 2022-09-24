@@ -10,34 +10,36 @@ import Footer from '../components/Footer'
 export default function Home() {
   const [events, setEvents] = useState(undefined)
   const [isLoading, setLoading] = useState(false)
+  const [lat, setLat] = useState(undefined)
+  const [lon, setLon] = useState(undefined)
 
   useEffect( () => {
-    var div  = document.getElementById("location");
     const getLocation = async() => {
       if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(showPosition);
+        navigator.geolocation.watchPosition((position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          if (lat && lon) {
+            setLat(lat);
+            setLon(lon);
+          }
+        })
       } else {
-        div.innerHTML = "The Browser Does not Support Geolocation";
+        alert("The Browser Does not Support Geolocation");
       }
     }
 
-    const showPosition = async(position) => {
-      div.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
-    }
-
       const fetchData = async () => {
-          const data = await fetch('/api/event')
+          const data = await fetch(`/api/event?lat=${lat}&long=${lon}`)
           const json = await data.json();
           setEvents(json.events);
           setLoading(true);
       }
       
-      getLocation();
-      fetchData()
-      .catch()
-  }, [isLoading])
-  console.log(Array.isArray(events))
-
+      getLocation().then(fetchData())
+      
+  }, [isLoading, lat, lon])
+  
 
   return (
     <div>
@@ -52,17 +54,16 @@ export default function Home() {
         <h1 className="text-center text-xl italic text-cyan-800 font-bold">Build connection with your neighborhood</h1>
         <div className = "grid grid-cols-12" style= {{height:550 +'px'}}>
             <div className = "col-span-4 overflow-scroll" id ="div_eventList">
-            { events? (<Events events={events}/>) : (<div>No Events Found</div>)}
+            { events? (<Events events={events}/>) : (<div>No Events Found</div>)} 
             </div>
             <div className = "col-span-8" id ="map">
-              <Map events={events} />
+              <Map events={events} lon={lon} lan={lat}/>
             </div>
           </div>
         </div>
       </main>
       <footer className="">
       <Footer />
-        <div id="location"></div>
       </footer>
     </div>
   )

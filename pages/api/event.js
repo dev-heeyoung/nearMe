@@ -62,11 +62,10 @@ export default async function handler(req, res) {
     else if(req.method=='GET'){
       const lat = parseFloat(req.query.lat)
       const long = parseFloat(req.query.long)
+      console.log("lat: "+lat+" long: "+long)
       const result = await prisma.$queryRaw`SELECT * FROM Event`
       const events = result.filter(event=>{
-        //return getDistanceFromLatLonInKm(event.latitude,event.longitude, lat, long) < parseFloat(event.distance)
-        return getDistanceFromLatLonInKm(event.latitude,event.longitude, 43.779516, -79.415866) < parseFloat(event.distance)
-        
+        return getDistanceFromLatLonInKm(event.latitude,event.longitude, lat, long) < parseFloat(event.distance)
       })
       
       res.status(200).json({ events }) 
