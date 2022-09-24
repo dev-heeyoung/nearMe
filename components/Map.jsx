@@ -9,8 +9,6 @@ import { Draw } from 'ol/interaction';
 import Feature from 'ol/Feature';
 import { Point} from 'ol/geom';
 
-
-
 function Map(props){
     
     console.log(props.lon, props.lan);
@@ -37,18 +35,16 @@ function Map(props){
             geometry : new MultiPoint(eventsCoord)
         });
         */
-      
         //vector source for events
         const eventSource = new VectorSource({});
-        props.events?.map((event) =>{
+        const coords = [[-79.62106, 43.636265], [-79.623439, 43.636055], [-79.626636, 43.570452], [-79.553568, 43.67061], [-79.608228, 43.641731]];
+        coords.map((event) =>{
             const eventFeature =  new Feature({
-                geometry : new Point(transform([event.longitude, event.latitude], 'EPSG:4326' ,'EPSG:3857')),
+                geometry : new Point(transform(event, 'EPSG:4326' ,'EPSG:3857')),
             }); 
-            eventFeature.setProperties({'eventId' : event.id})
+           // eventFeature.setProperties({'eventId' : event.id})
             eventSource.addFeature(eventFeature);
-            
-           // console.log("event id" +  eventFeature.getProperties() + "      event coodinate   " + transform([event.longitude, event.latitude], 'EPSG:4326' ,'EPSG:3857'));
-        })
+            })
               
 
         //vector layer for events
@@ -61,6 +57,20 @@ function Map(props){
                 zindex: 10
             });
 
+        const curSource = new VectorSource({});
+        const curFeature = new Feature({
+            geometry : new Point(transform([-79.6137353, 43.6456027], 'EPSG:4326' ,'EPSG:3857')),
+        }); 
+        curSource.addFeature(curFeature);
+        const curLayer = new VectorLayer({
+            source: curSource,
+            style: {
+                'circle-radius': 9,
+                'circle-fill-color': 'blue'
+                },
+                zindex: 10
+            });
+
         const map = new OlMap({
             layers: [
                 new TileLayer({source: new OSM()}), 
@@ -68,39 +78,13 @@ function Map(props){
             ],
             target: "map", 
             view: new View({
-                center:transform([-79.34851251318761, 43.796259859304776],'EPSG:4326' ,'EPSG:3857'),
+                center:transform([-79.6137353, 43.6456027],'EPSG:4326' ,'EPSG:3857'),
                 zoom: 15,
             })
         })
-
-        // click -> get lan.lon
-        /*
-        const draw = new Draw({
-            source: new VectorSource({wrapX: false}),
-            type: 'Point',
-          });
-        map.addInteraction(draw);
-        */
         map.addLayer(eventLayer);
-        var selectedEvents = [];
-        map.on('click', function(evt){
-            map.forEachFeatureAtPixel(evt.pixel, function(feature){
-                //console.log(feature.getGeometry().getFlatCoordinates());
-                //console.log(feature.getProperties().eventId)
-                selectedEvents = props.events.find(event => event.id == feature.getProperties().eventId);
-                var str = "";
+        map.addLayer(curLayer);
 
-               // selectedEvents.map((e) => {
-                 //   str += `<div id = ${e.id}>${e.id}</div><div>${e.description}</div>`;
-               // });
-                console.log(selectedEvents);
-                document.getElementById("eventDetail").innerHTML="<div>Hyunjung</div>";          
-                console.log(document.getElementById("eventDetail"));
-            });
-    
-            //console.log(transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'));
-        });
-    
         setMapObject({ map })
         return ()=> null
     }, [])

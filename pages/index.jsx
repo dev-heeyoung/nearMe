@@ -57,7 +57,7 @@ export default function Home() {
             { events? (<Events events={events}/>) : (<div>No Events Found</div>)} 
             </div>
             <div className = "col-span-8" id ="map">
-              <Map events={events} lon={lon} lan={lat}/>
+              <Map events={events} lon={lon} lat={lat}/>
             </div>
           </div>
         </div>

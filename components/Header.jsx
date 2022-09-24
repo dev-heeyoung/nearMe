@@ -13,6 +13,7 @@ const Header = ({ type }) => {
 
     useEffect(() => {
         if (!session?.user && isSignedOut) {
+            alert("Signed out!")
             router.push(`/`)
         }
       }, []);
